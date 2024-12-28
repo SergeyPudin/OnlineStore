@@ -4,14 +4,11 @@ namespace OnlineStore
 {
     internal class Shop
     {
-        private Warehouse _warehouse;
+        private IWarehouse _warehouse;
 
-        public Shop(Warehouse warehouse)
+        public Shop(IWarehouse warehouse)
         {
-            if (warehouse == null)
-                throw new ArgumentNullException($"{nameof(warehouse)} is null");
-
-            _warehouse = warehouse;
+            _warehouse = warehouse ?? throw new ArgumentNullException($"{nameof(warehouse)} is null"); 
         }
 
         public Cart Cart()

@@ -6,8 +6,8 @@ namespace OnlineStore
     {
         public Good(string name)
         {
-            if (name == null)
-                throw new ArgumentNullException($"{nameof(name)} is null");
+            if (string.IsNullOrEmpty(name))
+                throw new ArgumentNullException($"{nameof(name)} is null or empty");
 
             Name = name;
         }

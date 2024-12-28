@@ -9,13 +9,10 @@ namespace OnlineStore
         private readonly List<Cell> _goods;
         private readonly IWarehouse _warehouse;
 
-        public Cart(Warehouse warehouse)
+        public Cart(IWarehouse warehouse)
         {
-            if (warehouse == null)
-                throw new ArgumentNullException(nameof(warehouse));
-
             _goods = new List<Cell>();
-            _warehouse = warehouse;
+            _warehouse = warehouse ?? throw new ArgumentNullException(nameof(warehouse)); 
         }
 
         public void Add(Good good, int quantity)
@@ -26,10 +23,10 @@ namespace OnlineStore
             if (quantity < 0)
                 throw new ArgumentOutOfRangeException("Quantity is negative");
 
-            if (_warehouse.HaveInStock(good, quantity))
-            {
                 Cell currentCell = _goods.FirstOrDefault(cell => cell.Good == good);
 
+            if (_warehouse.HaveInStock(good, quantity + currentCell.Quantity))
+            {
                 if (_goods.Contains(currentCell))
                 {
                     currentCell.Merge(good, quantity);

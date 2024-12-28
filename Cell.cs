@@ -6,13 +6,10 @@ namespace OnlineStore
     {
         public Cell(Good good, int quantity)
         {
-            if (good == null)
-                throw new ArgumentNullException(nameof(good));
-
             if (quantity < 0)
                 throw new ArgumentOutOfRangeException("Quantity is negative");
 
-            Good = good;
+            Good = good ?? throw new ArgumentNullException(nameof(good));
             Quantity = quantity;
         }
 
