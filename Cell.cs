@@ -4,32 +4,41 @@ namespace OnlineStore
 {
     internal struct Cell
     {
-        public Good Good { get; private set; }
-        public int Number { get; private set; }
-
-        public Cell(Good good, int number)
-        {
-            Good = good;
-            Number = number;
-        }
-
-        public Cell Merge(Good good, int number)
+        public Cell(Good good, int quantity)
         {
             if (good == null)
-                throw new InvalidOperationException($"{good.Name} is null");
+                throw new ArgumentNullException(nameof(good));
 
-            if (number < 0)
-                throw new InvalidOperationException("Number is negative");
+            if (quantity < 0)
+                throw new ArgumentOutOfRangeException("Quantity is negative");
 
-            return new Cell(good, Number + number);
+            Good = good;
+            Quantity = quantity;
         }
 
-        public Cell DecreaceGoodNumber(Good good, int number)
-        {
-            if (Number < number)
-                throw new InvalidOperationException("Good number is too small");
+        public Good Good { get; private set; }
+        public int Quantity { get; private set; }
 
-            return new Cell(good, Number - number);
+        public Cell Merge(Good good, int quantity)
+        {
+            if (good == null)
+                throw new ArgumentNullException($"{good.Name} is null");
+
+            if (quantity < 0)
+                throw new ArgumentOutOfRangeException("Quantity is negative");
+
+            return new Cell(good, Quantity + quantity);
+        }
+
+        public Cell DecreaceGoodNumber(Good good, int quantity)
+        {
+            if (good == null)
+                throw new ArgumentNullException($"{nameof(good)} is null");
+
+            if (Quantity < quantity)
+                throw new ArgumentOutOfRangeException("Good quantity is too small");
+
+            return new Cell(good, Quantity - quantity);
         }
     }
 }

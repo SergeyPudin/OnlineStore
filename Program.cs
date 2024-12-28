@@ -21,13 +21,13 @@ namespace OnlineStore
             Cart cart = shop.Cart();
 
             cart.Add(iPhone12, 4);
-            cart.Add(iPhone11, 3); 
+            cart.Add(iPhone11, 3);
 
-            cart.ShowGoods(); 
+            cart.ShowGoods();
 
             Console.WriteLine(cart.Order().Paylink);
 
-            cart.Add(iPhone12, 9); 
+            cart.Add(iPhone12, 9);
 
             Console.ReadKey();
         }
